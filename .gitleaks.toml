@@ -1,0 +1,10 @@
+# Default gitleaks rules, plus one narrow exception.
+# (Global [allowlist] syntax: gitleaks 8.24 does not apply the newer [[allowlists]] tables here. Regex only, no path
+# allowlist: with this syntax a path would exempt the whole file.)
+[extend]
+useDefault = true
+
+[allowlist]
+description = "SHA-256 fingerprints of the public demo API keys: hashes, not secrets (the keys are in the README on purpose)"
+regexTarget = "match"
+regexes = ['''KeySha256":\s*"[0-9a-f]{64}"''']
