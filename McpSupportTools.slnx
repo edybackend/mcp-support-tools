@@ -2,4 +2,8 @@
   <Folder Name="/src/">
     <Project Path="src/SupportDesk.Mcp/SupportDesk.Mcp.csproj" />
   </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/SupportDesk.IntegrationTests/SupportDesk.IntegrationTests.csproj" />
+    <Project Path="tests/SupportDesk.UnitTests/SupportDesk.UnitTests.csproj" />
+  </Folder>
 </Solution>
