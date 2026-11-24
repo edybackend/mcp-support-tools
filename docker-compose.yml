@@ -1,0 +1,15 @@
+name: mcp-support-tools
+
+services:
+  support-desk-mcp:
+    build:
+      context: .
+    image: mcp-support-tools:local
+    ports:
+      - "8080:8080" # MCP endpoint: http://localhost:8080/mcp (Streamable HTTP)
+    volumes:
+      - support-data:/app/data
+    restart: unless-stopped
+
+volumes:
+  support-data:
