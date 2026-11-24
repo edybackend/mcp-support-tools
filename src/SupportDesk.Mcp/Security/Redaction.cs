@@ -74,6 +74,6 @@ public static partial class Redaction
     [GeneratedRegex(@"\b\d(?:[ -]?\d){12,18}\b")]
     private static partial Regex CardCandidate();
 
-    [GeneratedRegex(@"(?i)\b(?:password|passwd|secret|api[_-]?key|token)\s*[:=]\s*\S+|\bsk-[A-Za-z0-9]{16,}|\bBearer\s+[A-Za-z0-9._-]{20,}")]
+    [GeneratedRegex(@"(?i)\b(?:password|passwd|secret|api[_-]?key|token)\s*[:=]\s*[^\s"",;}]+|\bsk-[A-Za-z0-9]{16,}|\bBearer\s+[A-Za-z0-9._-]{20,}")]
     private static partial Regex SecretPattern();
 }
