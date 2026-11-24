@@ -19,8 +19,6 @@ O ponto não são as ferramentas, e sim **o que o servidor garante** quando um m
 | Quanto | 30 chamadas por minuto por cliente; um agente em loop recebe um erro da ferramenta, não derruba o banco |
 | O que aconteceu | toda chamada auditada: cliente, ferramenta, argumentos mascarados, resultado, duração |
 
-Pequeno de propósito: dá para ler em uns 15 minutos e subir com um comando.
-
 ## Como rodar
 
 Requisito: Docker.
@@ -144,20 +142,9 @@ ferramentas com `[Authorize]` sem o filtro, ou seja, é seguro por padrão.
 - **A detecção de cartões e segredos por padrão** pega os casos comuns, não todos; um serviço de DLP iria além.
 - **Chamadas negadas são recusadas pelo filtro de autorização antes do filtro de auditoria**, então aparecem nos logs do ASP.NET Core, não no `audit_log`.
 
-## Engenharia assistida por IA
+## Trabalhando com um agente de IA
 
-Este projeto foi construído com o Claude Code sob controles explícitos de engenharia, e ele mesmo é uma ferramenta para agentes de IA:
-
-- **Regras do projeto** ([`CLAUDE.md`](CLAUDE.md)) definem as regras da superfície MCP.
-- **Hooks** ([`.claude/settings.json`](.claude/settings.json)):
-  - formatam cada mudança e bloqueiam edição de segredos e bancos;
-  - **recusam ferramenta sem anotações `ReadOnly`/`Destructive` explícitas ou sem descrição**;
-  - **recusam tipo MCP sem `[Authorize]`, ou `Program.cs` sem `AddAuthorizationFilters()`**;
-  - rodam build e testes antes de a tarefa ser dada como pronta.
-- **Spec primeiro**: cada funcionalidade começa como especificação em [`specs/`](specs), com critérios de aceite.
-- **Os mesmos portões de qualidade para cada linha**: o CI exige zero avisos, formatação, os testes MCP, uma execução com JSON-RPC puro contra o contêiner e varredura de segredos (com uma exceção documentada para as impressões digitais das chaves de demonstração).
-
-A arquitetura é minha, e eu reviso cada mudança.
+Este repositório é uma ferramenta para agentes de IA e também foi construído com um. Os hooks dele em [`.claude/`](.claude) exigem que toda ferramenta MCP declare anotações e descrição, que todo tipo MCP tenha política de autorização e que o `AddAuthorizationFilters()` continue no lugar. O [`CLAUDE.md`](CLAUDE.md) explica as regras da superfície MCP.
 
 ## Licença
 

@@ -18,8 +18,6 @@ The point is not the tools; it is **what the server enforces** when a model call
 | How much | 30 tool calls per minute per client; a looping agent gets a tool error, not your database |
 | What happened | every call audited: client, tool, redacted arguments, outcome, duration |
 
-Small on purpose: it can be read in about 15 minutes and started with one command.
-
 ## Quick start
 
 Requirements: Docker.
@@ -143,20 +141,9 @@ without the filter, which is secure by default.
 - **Pattern-based detection** of cards and secrets catches the common cases, not all of them; a DLP service would go further.
 - **Denied calls are refused by the authorization filter before the audit filter**, so they appear in the ASP.NET Core logs, not in `audit_log`.
 
-## AI-Assisted Engineering
+## Working with an AI agent
 
-This project was built with Claude Code under explicit engineering controls, and it is itself a tool for AI agents:
-
-- **Project rules** ([`CLAUDE.md`](CLAUDE.md)) define the rules for the MCP surface.
-- **Hooks** ([`.claude/settings.json`](.claude/settings.json)):
-  - format every change and block edits to secrets and databases;
-  - **refuse a tool without explicit `ReadOnly`/`Destructive` annotations or without a description**;
-  - **refuse an MCP type without `[Authorize]`, or a `Program.cs` without `AddAuthorizationFilters()`**;
-  - run the build and tests before a task is considered done.
-- **Spec-first**: each feature starts as a spec in [`specs/`](specs) with acceptance criteria.
-- **Same quality gates for every line**: CI enforces warnings as errors, formatting, the MCP tests, a raw JSON-RPC run against the container, and secret scanning (with one documented exception for the demo key fingerprints).
-
-I own the architecture and review every change.
+This repository is a tool for AI agents and was also built with one. Its own hooks in [`.claude/`](.claude) require every MCP tool to declare its annotations and description, every MCP type to carry an authorization policy, and `AddAuthorizationFilters()` to stay in place. [`CLAUDE.md`](CLAUDE.md) explains the rules for the MCP surface.
 
 ## License
 
