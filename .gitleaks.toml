@@ -5,6 +5,8 @@
 useDefault = true
 
 [allowlist]
-description = "SHA-256 fingerprints of the public demo API keys: hashes, not secrets (the keys are in the README on purpose)"
+description = "Public demo API keys (dev-…-change-me, documented in the README) and their SHA-256 fingerprints"
 regexTarget = "match"
 regexes = ['''KeySha256":\s*"[0-9a-f]{64}"''']
+# A finding whose secret contains this word is the documented demo key, used in curl examples and .mcp.json.
+stopwords = ["-change-me"]
